@@ -13,6 +13,7 @@ docker build -t erp/odoo:v9  dockerfiles/odoo/9.0/
 ....
 
 REPOSITORY TAG IMAGE ID CREATED VIRTUAL SIZE
+
 erp/odoo v9 9b47bc2fa2ae 15 seconds ago 3.343 GB
 
 
