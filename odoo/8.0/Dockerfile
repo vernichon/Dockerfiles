@@ -7,7 +7,7 @@ RUN apt-get -y install git
 RUN mkdir /opt/odoo
 RUN git clone -b 8.0 https://github.com/odoo/odoo.git /opt/odoo/8.0
 RUN apt-get -y install python-dev libsasl2-dev sudo libjpeg-dev libevent-dev gcc libxml2-dev libxslt-dev node-less libldap2-dev
-RUN apt-get -y install wget net-tools apt-utils
+RUN apt-get -y install wget net-tools apt-utils openssh-server
 RUN apt-get -y install postgresql-server-dev-9.4
 RUN useradd --home /opt/odoo --shell /bin/bash odoo
 RUN chown odoo.odoo -R /opt/odoo
@@ -18,6 +18,10 @@ RUN python get-pip.py
 RUN pip install -r /opt/odoo/8.0/requirements.txt
 RUN /etc/init.d/postgresql start &&  su  - postgres -c "createuser -s odoo"
 COPY start_openerp /usr/local/bin/
+RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-jessie-amd64.deb
+RUN dpkg -i wkhtmltox-0.12.2_linux-jessie-amd64.deb
+RUN cp /usr/local/bin/wkhtmltopdf /usr/bin/
+RUN cp /usr/local/bin/wkhtmltoimage /usr/bin/
 RUN chmod +x /usr/local/bin/start_openerp
 CMD ["/bin/bash","/usr/local/bin/start_openerp"]
 EXPOSE   8069
