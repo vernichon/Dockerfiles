@@ -20,6 +20,7 @@ RUN pg_createcluster   -e UTF-8 9.4 main
 RUN /etc/init.d/postgresql start &&  su  - postgres -c "createuser -s odoo"
 COPY start_openerp /usr/local/bin/
 RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-jessie-amd64.deb
+RUN apt-get -y install fontconfig  libfontconfig1 libfreetype6 libpng12-0 libxrender1 xfonts-base xfonts-75dpi
 RUN dpkg -i wkhtmltox-0.12.2_linux-jessie-amd64.deb
 RUN cp /usr/local/bin/wkhtmltopdf /usr/bin/
 RUN cp /usr/local/bin/wkhtmltoimage /usr/bin/
