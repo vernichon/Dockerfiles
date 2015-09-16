@@ -1,0 +1,3 @@
+service postgresql start
+cd /opt/odoo/9.0
+su  odoo -c "./openerp-server"

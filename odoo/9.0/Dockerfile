@@ -7,7 +7,7 @@ RUN apt-get -y install git
 RUN mkdir /opt/odoo
 RUN git clone -b 9.0 https://github.com/odoo/odoo.git /opt/odoo/9.0
 RUN apt-get -y install python-dev libsasl2-dev sudo libjpeg-dev libevent-dev gcc libxml2-dev libxslt-dev node-less libldap2-dev
-RUN apt-get -y install wget
+RUN apt-get -y install wget net-tools apt-utils
 RUN apt-get -y install postgresql-server-dev-9.4
 RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
@@ -15,4 +15,10 @@ RUN pip install -r /opt/odoo/9.0/requirements.txt
 RUN pip install pillow
 RUN useradd --home /opt/odoo --shell /bin/bash odoo
 RUN chown odoo.odoo -R /opt/odoo
+RUN pg_dropcluster --stop 9.4 main
+RUN pg_createcluster   -e UTF-8 9.4 main
 RUN /etc/init.d/postgresql start &&  su  - postgres -c "createuser -s odoo"
+COPY start_openerp /usr/local/bin/
+RUN chmod +x /usr/local/bin/start_openerp
+CMD ["/bin/bash","/usr/local/bin/start_openerp"]
+EXPOSE   8069
