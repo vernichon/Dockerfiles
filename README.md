@@ -12,7 +12,7 @@ for build image / pour construire l'image
 
 git clone git@bitbucket.org:eric_vernichon/dockerfiles.git
 
-docker build -t erp/odoo:v9  dockerfiles/odoo/9.0/
+docker build -t username/odoo:v9  dockerfiles/odoo/9.0/
 ```
 
 
@@ -36,7 +36,7 @@ for use / pour l’utiliser
 ```
 #!docker
 
-docker run -p 8069:8069 -t -i erp/odoo:v9 
+docker run -p 8069:8069 -t -i username/odoo:v9 
 ```
 
 
