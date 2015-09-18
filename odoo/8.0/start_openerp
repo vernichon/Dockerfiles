@@ -1,3 +1,4 @@
 service postgresql start
+service ssh start
 cd /opt/odoo/8.0
 su  odoo -c "./openerp-server"
