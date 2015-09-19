@@ -16,7 +16,7 @@ RUN wget https://bootstrap.pypa.io/get-pip.py
 RUN python get-pip.py
 RUN pip install -r /opt/odoo/8.0/requirements.txt
 RUN wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2/wkhtmltox-0.12.2_linux-jessie-amd64.deb
-RUN apt-get -y install fontconfig  libfontconfig1 libfreetype6 libpng12-0 libxrender1 xfonts-base xfonts-75dpi
+RUN apt-get -y install vim fontconfig  libfontconfig1 libfreetype6 libpng12-0 libxrender1 xfonts-base xfonts-75dpi
 RUN dpkg -i wkhtmltox-0.12.2_linux-jessie-amd64.deb
 RUN cp /usr/local/bin/wkhtmltopdf /usr/bin/
 RUN cp /usr/local/bin/wkhtmltoimage /usr/bin/
@@ -26,10 +26,10 @@ ENV USER odoo
 RUN adduser --disabled-password --gecos "" --home /opt/odoo --shell /bin/bash $USER
 RUN chown odoo.odoo -R /opt/odoo
 RUN mkdir /var/run/sshd
-ADD authorized_keys /home/$USER/.ssh/authorized_keys
-RUN chown $USER /home/$USER/.ssh/authorized_keys
-RUN chown -R $USER:$USER /home/$USER/.ssh/authorized_keys
-RUN chmod 700 /home/$USER/.ssh/authorized_keys
+ADD authorized_keys /opt/$USER/.ssh/authorized_keys
+RUN chown $USER  /opt/$USER/.ssh/authorized_keys
+RUN chown -R $USER:$USER /opt/$USER/.ssh/authorized_keys
+RUN chmod 700 /opt/$USER/.ssh/authorized_keys
 RUN /etc/init.d/postgresql start && su  - postgres -c "createuser -s odoo" && su - postgres -c  "psql -f /tmp/alter_password.sql"
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.4/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
