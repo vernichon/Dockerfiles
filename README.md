@@ -10,7 +10,7 @@ for build image / pour construire l'image
 ```
 #!docker
 
-git clone git@bitbucket.org:eric_vernichon/dockerfiles.git
+git clone git@github.com:vernichon/Dockerfiles.git
 
 docker build -t username/odoo:v9  dockerfiles/odoo/9.0/
 ```
